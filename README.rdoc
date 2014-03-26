@@ -1,0 +1,7 @@
+== Usage
+
+<tt>rails c</tt>.
+then run in the console :
+<tt>Entity.start</tt>.
+
+And all files from /public/files will be saved to db
