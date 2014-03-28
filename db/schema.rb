@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140325233450) do
+ActiveRecord::Schema.define(version: 20140328234755) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,11 +49,18 @@ ActiveRecord::Schema.define(version: 20140325233450) do
     t.float    "column_30"
     t.float    "column_31"
     t.float    "column_32"
-    t.string   "file"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "s"
+    t.string   "x"
+    t.string   "l"
+    t.string   "w"
   end
 
-  add_index "entities", ["file"], name: "index_entities_on_file", using: :btree
+  add_index "entities", ["l"], name: "index_entities_on_l", using: :btree
+  add_index "entities", ["s", "x", "l", "w"], name: "index_entities_on_s_and_x_and_l_and_w", using: :btree
+  add_index "entities", ["s"], name: "index_entities_on_s", using: :btree
+  add_index "entities", ["w"], name: "index_entities_on_w", using: :btree
+  add_index "entities", ["x"], name: "index_entities_on_x", using: :btree
 
 end

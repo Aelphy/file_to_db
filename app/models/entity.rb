@@ -1,13 +1,12 @@
+require 'csv'
+
 class Entity < ActiveRecord::Base
-  def self.start
-    dir_name = File.join(Rails.root, 'public', 'files')
-
-    Dir.foreach(dir_name) do |file_name|
-      file_path = File.join(dir_name)
-
-      CSV.foreach(file_path) do |row|
-        create([row, file_name])
-      end
-    end
+  (1..32).each do |column_nomber|
+    validates "column_#{column_nomber}".to_sym, presence: true
   end
+
+  validates :s, presence: true
+  validates :x, presence: true
+  validates :l, presence: true
+  validates :w, presence: true
 end
