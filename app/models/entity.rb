@@ -14,32 +14,14 @@ class Entity < ActiveRecord::Base
   #
   # Returns Hash
   def self.file_scale(file_hash)
-    result = {}
-
-    entities = Entity.where(file_hash)
-
-    COLUMNS.each do |column|
-      max = entities.maximum(column)
-      min = entities.minimum(column)
-      result[column] = max - min
-    end
-
-    result
+    scale(Entity.where(file_hash))
   end
 
   # Public: compute scale of every field
   #
   # Returns Hash
   def self.total_scale
-    result = {}
-
-    COLUMNS.each do |column|
-      max = Entity.maximum(column)
-      min = Entity.minimum(column)
-      result[column] = max - min
-    end
-
-    result
+    scale(Entity)
   end
 
   # Public: compute line nomber from file
@@ -50,5 +32,17 @@ class Entity < ActiveRecord::Base
     zero_line = Entity.where(s: s, x: x, l: l, w: w).order(:id).first.id
 
     @line_nomber = id - zero_line
+  end
+
+  private
+
+  # Internal: scale of given objects
+  #
+  # Returns Hash
+  def self.scale(enities)
+    COLUMNS.reduce({}) do |a, e|
+      a[e] = enities.maximum(e) - enities.minimum(e)
+      a
+    end
   end
 end
