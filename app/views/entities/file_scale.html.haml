@@ -1,0 +1,10 @@
+%table
+  %body
+    %tr
+      - Entity::COLUMNS.each do |column|
+        %th
+          = column
+    %tr
+      - Entity::COLUMNS.each do |column|
+        %td
+          = @total_file_scale[column]

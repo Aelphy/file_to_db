@@ -17,6 +17,23 @@ class Entity < ActiveRecord::Base
     scale(Entity.where(file_hash))
   end
 
+  # Public: compute scale of given file
+  #
+  # file_hash - Hash, содержит в себе идентификаторы файла
+  #
+  # Returns Hash
+  def self.total_file_scale(file_hash)
+    values = []
+
+    Entity.where(file_hash).each do |entity|
+      COLUMNS.each do |column|
+        values << entity[column]
+      end
+    end
+
+    values.max - values.min
+  end
+
   # Public: compute scale of every field
   #
   # Returns Hash
@@ -39,9 +56,12 @@ class Entity < ActiveRecord::Base
   # Internal: scale of given objects
   #
   # Returns Hash
-  def self.scale(enities)
+  def self.scale(entities)
+
+    return if entities.blank?
+
     COLUMNS.reduce({}) do |a, e|
-      a[e] = enities.maximum(e) - enities.minimum(e)
+      a[e] = entities.maximum(e) - entities.minimum(e)
       a
     end
   end

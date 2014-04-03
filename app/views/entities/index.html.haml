@@ -1,0 +1,13 @@
+= label_tag :file_name, 'Введите название файла для нахождения размаха по столбцам'
+= form_tag(file_scale_url, method: :get) do
+  = text_field_tag :file_name
+  = submit_tag 'Зотверждаю'
+
+= label_tag :file_name, 'Введите название файла для нахождения размаха'
+= form_tag(total_file_scale_url, method: :get) do
+  = text_field_tag :file_name
+  = submit_tag 'Зотверждаю'
+
+= label_tag :file_name, 'Нажмите для нахождения глобального размаха по координатам'
+= form_tag(total_scale_url, method: :get) do
+  = submit_tag 'Зотверждаю'
