@@ -13,6 +13,7 @@ gem 'better_errors'
 gem 'jazz_hands'
 gem 'pry-debugger'
 gem 'haml'
+gem 'gnuplot'
 
 group :doc do
   gem 'sdoc', require: false
