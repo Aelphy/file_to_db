@@ -1,3 +1,5 @@
+require 'csv'
+
 module Operator
   def self.included(base)
     base.extend ClassMethods
@@ -131,6 +133,22 @@ module Operator
       # end
 
       build_image_by_files(s: '3', l: '6', w: '3')
+    end
+
+    def measure_scale
+      CSV.open("output/scale_distribution_#{self.name}.csv", 'wb') do |csv|
+        data = []
+        Identificator.where('LENGTH(name) = ?', self::FILENAME_SIZE).pluck(:name).each do |name|
+          entity_hash = build_entities_hash(name)
+          scale = total_file_scale(entity_hash)
+
+          next unless scale
+
+          data << scale
+        end
+
+        csv << data
+      end
     end
 
     private
